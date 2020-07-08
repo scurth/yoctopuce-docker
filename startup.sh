@@ -1,7 +1,28 @@
 #!/bin/bash
+###
+### startup.sh — yocotpuce-hub docker run
+###
+### Usage:
+###   startup.sh [-h]
+###
+### Options:
+###   -h        Show this message.
+PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+
 hubversion=29281
 
 image_and_tag="virtualhub:$hubversion"
+
+
+help() {
+    sed -rn 's/^### ?//;T;p' "$0"
+}
+
+if [[ $# == 0 ]] || [[ "$1" == "-h" ]]; then
+    help
+    exit 1
+fi
+
 
 if [ -z $(docker images -q ${image_and_tag}) ]
 then
